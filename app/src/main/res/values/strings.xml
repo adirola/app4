@@ -19,4 +19,13 @@
     <string name="title_messages">Messages</string>
     <string name="title_friends">Friends</string>
     <string name="title_home">Home</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="one">Latest</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="two">Browse</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="three">latest</string>
 </resources>
