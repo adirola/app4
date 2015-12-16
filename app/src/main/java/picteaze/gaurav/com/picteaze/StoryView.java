@@ -1,5 +1,9 @@
 package picteaze.gaurav.com.picteaze;
 
+/**
+ * Created by equinox on 15/12/15.
+ */
+
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,10 +18,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-public class MainActivity extends AppCompatActivity {
+public class StoryView extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private TabLayout tabLayout;
@@ -41,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
     }
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragment(), "Browse");
-        adapter.addFragment(new TwoFragment(), "Places");
-        adapter.addFragment(new ThreeFragment(), "Latest");
+        adapter.addFragment(new Story1(), "Description");
+        adapter.addFragment(new Story2(), "Story");
+        adapter.addFragment(new Story3(), "Comment");
         viewPager.setAdapter(adapter);}
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
