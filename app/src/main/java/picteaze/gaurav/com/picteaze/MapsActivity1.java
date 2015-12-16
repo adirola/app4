@@ -1,5 +1,6 @@
 package picteaze.gaurav.com.picteaze;
 
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ public class MapsActivity1 extends Fragment {
     MapView mMapView;
     private GoogleMap googleMap;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class MapsActivity1 extends Fragment {
                 false);
         mMapView = (MapView) v.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
+
+
 
         mMapView.onResume();// needed to get the map to display immediately
 
@@ -44,6 +48,11 @@ public class MapsActivity1 extends Fragment {
         // latitude and longitude
         double latitude = 17.385044;
         double longitude = 78.486671;
+
+        googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        googleMap.getUiSettings().setRotateGesturesEnabled(true);
+
 
         // create marker
         MarkerOptions marker = new MarkerOptions().position(
@@ -62,6 +71,8 @@ public class MapsActivity1 extends Fragment {
 
         // Perform any camera updates here
         return v;
+
+
     }
 
     @Override
@@ -87,4 +98,5 @@ public class MapsActivity1 extends Fragment {
         super.onLowMemory();
         mMapView.onLowMemory();
     }
+
 }
