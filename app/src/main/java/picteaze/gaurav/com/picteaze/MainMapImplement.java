@@ -58,10 +58,7 @@ public class MainMapImplement extends AppCompatActivity {
                                        startActivity(i);
                                    }
                                });
-
-
-
-                viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -69,6 +66,10 @@ public class MainMapImplement extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+
+
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -78,24 +79,19 @@ public class MainMapImplement extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+    private void setupViewPager1(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new MapsActivity2(), "Map");
+
+        viewPager.setAdapter(adapter);
+    }
+
     @Override
     public void onStart() {
         super.onStart();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "MainMapImplement Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://picteaze.gaurav.com.picteaze/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
+
+
     }
 
     @Override
@@ -116,6 +112,20 @@ public class MainMapImplement extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager1(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
