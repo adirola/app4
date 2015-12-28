@@ -16,6 +16,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,13 +34,18 @@ public class Camera extends Activity {
     public static final int MEDIA_TYPE_VIDEO = 2;
 
     // directory name to store captured images and videos
-    private static final String IMAGE_DIRECTORY_NAME = "Hello Camera";
+    private static final String IMAGE_DIRECTORY_NAME = "Picteaze";
 
     private Uri fileUri; // file url to store image/video
 
     private ImageView imgPreview;
     private VideoView videoPreview;
-    private Button btnCapturePicture, btnRecordVideo;
+    private Button btnCapturePicture, btnRecordVideo,btnback;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +56,7 @@ public class Camera extends Activity {
         videoPreview = (VideoView) findViewById(R.id.videoPreview);
         btnCapturePicture = (Button) findViewById(R.id.btnCapturePicture);
         btnRecordVideo = (Button) findViewById(R.id.btnRecordVideo);
+        btnback = (Button) findViewById(R.id.btnback);
 
         /**
          * Capture image button click event
@@ -72,6 +82,17 @@ public class Camera extends Activity {
             }
         });
 
+        btnback.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Camera.this,MainMapImplement.class);
+                startActivity(i);
+            }
+        });
+
+
+
         // Checking camera availability
         if (!isDeviceSupportCamera()) {
             Toast.makeText(getApplicationContext(),
@@ -80,11 +101,14 @@ public class Camera extends Activity {
             // will close the app if the device does't have camera
             finish();
         }
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     /**
      * Checking device has camera hardware or not
-     * */
+     */
     private boolean isDeviceSupportCamera() {
         // this device has a camera
 // no camera on this device
@@ -147,7 +171,7 @@ public class Camera extends Activity {
 
     /**
      * Receiving activity result method will be called after closing the camera
-     * */
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // if the result is capturing Image
@@ -155,7 +179,8 @@ public class Camera extends Activity {
             if (resultCode == RESULT_OK) {
                 // successfully captured the image
                 // display it in image view
-                previewCapturedImage();
+
+
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled Image capture
                 Toast.makeText(getApplicationContext(),
@@ -243,6 +268,7 @@ public class Camera extends Activity {
     /**
      * returning image / video
      */
+
     private static File getOutputMediaFile(int type) {
 
         // External sdcard location
@@ -260,11 +286,15 @@ public class Camera extends Activity {
             }
         }
 
+
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
                 Locale.getDefault()).format(new Date());
+
+
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE) {
+
             mediaFile = new File(mediaStorageDir.getPath() + File.separator
                     + "IMG_" + timeStamp + ".jpg");
         } else if (type == MEDIA_TYPE_VIDEO) {
@@ -275,5 +305,54 @@ public class Camera extends Activity {
         }
 
         return mediaFile;
+
+
     }
+
+
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Camera Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://picteaze.gaurav.com.picteaze/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Camera Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://picteaze.gaurav.com.picteaze/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
+
+
+
 }
